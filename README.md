@@ -1,6 +1,6 @@
 *Forked from [vimscript#529](http://www.vim.org/scripts/script.php?script_id=529)*
 
-blockquote.vim
+BlockQuote.vim
 ==============
 
 Insert block quotes like emacs blockquote.el
@@ -30,31 +30,31 @@ Usage
 Blockquote a range *(default: current line)*:
 
 ```
-:<range>Bq [title]
+:[range]BlockQuote {title}
 ```
 
 Blockquote a file:
 
 ```
-:Bqf {filename}
+:BlockQuoteFile {filename}
 ```
 
 Blockquote a file, starting at line `{start}`:
 
 ```
-:Bqf {filename} {start}
+:BlockQuoteFile {filename} {start}
 ```
 
 Blockquote a file, starting at line `{start}` and ending at `{end}`:
 
 ```
-:Bqf {filename} {start} {end}
+:BlockQuoteFile {filename} {start} {end}
 ```
 
-Remove a blockquote, starting at `<range>` *(default: current line)*:
+Remove a blockquote, starting at `[range]` *(default: current line)*:
 
 ```
-:<range>UBq
+:[range]BlockUnQuote
 ```
 
 Credits

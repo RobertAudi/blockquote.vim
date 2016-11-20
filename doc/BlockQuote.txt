@@ -1,0 +1,92 @@
+*BlockQuote.txt*    Insert block quotes like emacs blockquote.el
+
+Version: 0.1
+Author: Andreas Ferber <af-vim@myipv6.de>
+
+==============================================================================
+Contents                                                 *BlockQuote-Contents*
+
+        Intro................................|BlockQuote|
+        Examples.............................|BlockQuote-Examples|
+        Usage................................|BlockQuote-Usage|
+        Credits..............................|BlockQuote-Credits|
+        Changelog............................|BlockQuote-Changelog|
+
+==============================================================================
+Intro                                                             *BlockQuote*
+
+Insert block quotes like emacs blockquote.el
+
+Requirement:
+- Vim 6.0 or later
+
+==============================================================================
+Examples                                                 *BlockQuote-Examples*
+
+With a title: >
+    ,----[ title ]-
+    | some text
+    `----
+<
+
+Without a title: >
+    ,----
+    | some text
+    `----
+<
+
+==============================================================================
+Usage                                                       *BlockQuote-Usage*
+
+:BlockQuote                                                      *:BlockQuote*
+    Blockquote a range
+    Default: current line
+
+>
+    :[range]BlockQuote {title}
+<
+
+:BlockQuoteFile                                              *:BlockQuoteFile*
+    Blockquote a file
+
+>
+    :BlockQuoteFile {filename}
+<
+
+    Blockquote a file, starting at line {start}:
+
+>
+    :BlockQuoteFile {filename} {start}
+<
+
+    Blockquote a file, starting at line {start} and ending at {end}:
+
+>
+    :BlockQuoteFile {filename} {start} {end}
+<
+
+:BlockUnQuote                                                  *:BlockUnQuote*
+   Remove a blockquote, starting at [range]
+   Default: current line
+
+>
+    :[range]BlockUnQuote
+<
+
+==============================================================================
+Credits                                                   *BlockQuote-Credits*
+
+The original version can be found at
+    http://www.vim.org/scripts/script.php?script_id=529
+
+Created by Andreas Ferber <af-vim@myipv6.de>
+    http://www.vim.org/account/profile.php?user_id=1374
+
+==============================================================================
+Changelog                                               *BlockQuote-Changelog*
+
+0.1     2003-01-14
+        - Initial upload
+
+==============================================================================
+vim:tw=78:ts=2:sw=2:sts=2:ft=help:norl

@@ -1,31 +1,58 @@
-" VIM function to insert block quotes like emacs blockquote.el
-" Written by Andreas Ferber <af-vim@myipv6.de>
+" BlockQuote: Insert block quotes like emacs blockquote.el
+"============================================================================= {{{
+" Name Of File: BlockQuote.vim
+" Description: VIM function to insert block quotes like emacs blockquote.el
+" Author: Andreas Ferber <af-vim@myipv6.de>
+" Contributors: Robert Audi
 "
 " Example:
-" ,----[ title ]-
-" | some text
-" `----
 "
-" Without title:
-" ,----
-" | some text
-" `----
+"   With a title:
+"
+"   ,----[ title ]-
+"   | some text
+"   `----
+"
+"   Without a title:
+"
+"   ,----
+"   | some text
+"   `----
 "
 " Usage:
+"
 "   Blockquote a range (default: current line)
-"   :<range>Bq [title]
+"
+"   :[range]BlockQuote {title}
+"
 "   Blockquote a file
-"   :Bqf {filename}
+"
+"   :BlockQuoteFile {filename}
+"
 "   Blockquote a file, starting at line {start}
-"   :Bqf {filename} {start}
+"
+"   :BlockQuoteFile {filename} {start}
+"
 "   Blockquote a file, starting at line {start} and ending at {end}
-"   :Bqf {filename} {start} {end}
-"   Remove a blockquote, starting at <range> (default: current line)
-"   :<range>UBq
+"
+"   :BlockQuoteFile {filename} {start} {end}
+"
+"   Remove a blockquote, starting at [range] (default: current line)
+"
+"   :[range]BlockUnQuote
+"
+"============================================================================= }}}
 
-"
-" Some helper functions
-"
+if exists("g:loaded_blockquote")
+  finish
+endif
+let g:loaded_blockquote = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
+
+" Helper functions
+" ------------------------------------------------------------------------------ {{{
 
 " Insert line before linenum
 function! BqInsertLine(linenum, linestring)
@@ -49,9 +76,10 @@ function! BqDelete(startline, endline)
     execute 'normal:' . a:startline . ',' . a:endline . " delete\<CR>"
 endfunction
 
-"
-" main functions
-"
+" ------------------------------------------------------------------------------ }}}
+
+" Main functions
+" ------------------------------------------------------------------------------ {{{
 
 " blockquote a range, using the first argument (if given) as the title
 " the cursor is positioned on the headline of the resulting blockquote
@@ -89,11 +117,11 @@ function! BlockQuoteFile(filename, ...)
     " save start and end of inserted text
     let l:bstart = line("'[")
     let l:bend = line("']")
-    " length of the inserted text 
+    " length of the inserted text
     let l:blen = l:bend - l:bstart + 1
     " check additional parameters
     if a:0 >= 1
-        if a:0 >= 2 
+        if a:0 >= 2
             " two add. parameters, check plausibility
             if a:1 > a:2
                 call BqDelete(l:bstart, l:bend)
@@ -148,9 +176,14 @@ function! BlockUnQuote() range
     call BqDelete(l:line, l:line)
 endfunction
 
-" and finally map the functions to Ex commands
-command! -nargs=? -range Bq <line1>,<line2>call BlockQuote(<q-args>)
-command! -nargs=+ -complete=file Bqf call BlockQuoteFile(<f-args>)
-command! -nargs=0 -range UBq <line1>call BlockUnQuote()
+" ------------------------------------------------------------------------------ }}}
 
-" vi:ts=4 sw=4 expandtab
+" and finally map the functions to Ex commands
+command! -nargs=? -range BlockQuote <line1>,<line2>call BlockQuote(<q-args>)
+command! -nargs=+ -complete=file BlockQuoteFile call BlockQuoteFile(<f-args>)
+command! -nargs=0 -range BlockUnQuote <line1>call BlockUnQuote()
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vi:set ts=4 sw=4 sts=4 et:
